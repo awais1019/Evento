@@ -1,7 +1,33 @@
-import React from 'react'
+import H1 from "@/components/h1";
+import { EventoEvent } from "@/lib/types";
+import React from "react";
 
-export default function Page () {
+type EventPageProps = {
+  params: {
+    city: string;
+  };
+};
+
+export default async function Page({ params }: EventPageProps) {
+  const city = params.city;
+
+  const res = await fetch(`https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`);
+  const events: EventoEvent[] = await res.json();
+
   return (
-    <main>All Events</main>
-  )
+    <main className="flex flex-col items-center py-20 px-[20px] min-h-[110vh]">
+      <H1>
+        {city == "all"
+          ? "All Events"
+          : `Events in ${
+              city.charAt(0).toUpperCase() + city.slice(1).toLowerCase()
+            }`}
+      </H1>
+      <section>
+        {events.map((event) => (
+          <h1 className="p-1" key={event.id}>{event.name}</h1>
+        ))}
+      </section>
+    </main>
+  );
 }
