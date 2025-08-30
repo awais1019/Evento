@@ -20,7 +20,7 @@ export default function EventCard({ event }: EventCardProps) {
           alt="placeholder-pic"
           height={280}
           width={500}
-          className="h-[60%]"
+          className="h-[60%] object-cover"
         />
         <div className="flex flex-1 flex-col justify-center items-center">
           <h2 className="text-2xl font-semibold">{event.name}</h2>

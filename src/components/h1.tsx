@@ -3,7 +3,7 @@ import React from 'react'
 
 type H1Props={
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 
