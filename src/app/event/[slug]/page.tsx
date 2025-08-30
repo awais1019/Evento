@@ -1,6 +1,5 @@
 import H1 from "@/components/h1";
 import { EventoEvent } from "@/lib/types";
-import { p } from "motion/react-client";
 import Image from "next/image";
 import React from "react";
 
@@ -45,7 +44,7 @@ export default async function EventDetailsPage({ params }: EventDetailsProps) {
                 day: "numeric",
               })}
             </p>
-            <H1 className="mb-2 mt-1 whitespace-nowrap lg:5xl">
+            <H1 className="mb-2 mt-1 whitespace-nowrap lg:3xl">
               {eventDetails.name}
             </H1>
 
