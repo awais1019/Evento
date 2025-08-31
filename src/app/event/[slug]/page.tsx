@@ -1,20 +1,26 @@
 import H1 from "@/components/h1";
-import { EventoEvent } from "@/lib/types";
+import { getEvent } from "@/lib/utils";
+import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 
-type EventDetailsProps = {
+type Props = {
   params: {
     slug: string;
   };
 };
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = params;
+  const event = await getEvent(slug);
+  return {
+    title: event.name,
+  };
+}
 
-export default async function EventDetailsPage({ params }: EventDetailsProps) {
-  const { slug } = await params;
-  const res = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
-  );
-  const eventDetails: EventoEvent = await res.json();
+export default async function EventDetailsPage({ params }: Props) {
+  const { slug } = params;
+  const eventDetails = await getEvent(slug);
+
   return (
     <main>
       <section className="py-14 h-full rounded-xl bg-white/[3%] w-full md:py-20 relative overflow-hidden  flex  justify-center items-center flex-row">
@@ -63,20 +69,12 @@ export default async function EventDetailsPage({ params }: EventDetailsProps) {
       </section>
       <div className="text-center min-h-[75vh] px-5 py-16">
         <Section>
-          <SectionHeading>
-            About this Event
-          </SectionHeading>
-          <SectionContent>
-            {eventDetails.description}
-          </SectionContent>
+          <SectionHeading>About this Event</SectionHeading>
+          <SectionContent>{eventDetails.description}</SectionContent>
         </Section>
         <Section>
-          <SectionHeading>
-            Location
-          </SectionHeading>
-          <SectionContent>
-            {eventDetails.location}
-          </SectionContent>
+          <SectionHeading>Location</SectionHeading>
+          <SectionContent>{eventDetails.location}</SectionContent>
         </Section>
       </div>
     </main>
@@ -89,5 +87,9 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   return <h2 className="text-2xl mb-6">{children}</h2>;
 }
 function SectionContent({ children }: { children: React.ReactNode }) {
-  return <p className="text-lg mx-auto max-w-4xl leading-8 text-white/75">{children}</p>;
+  return (
+    <p className="text-lg mx-auto max-w-4xl leading-8 text-white/75">
+      {children}
+    </p>
+  );
 }
