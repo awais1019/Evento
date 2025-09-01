@@ -1,15 +1,15 @@
 
 import React from "react";
 import EventCard from "./event-card";
-import { getEvents } from "@/lib/utils";
+import { getEvents } from "@/lib/server-utils";
 import PaginationControls from "./pagination-controls";
 
 type EventListProps = {
   city:string;
-  page:number;
+  page?:number;
 };
 
-export default async function EventList({ city,page }: EventListProps) {
+export default async function EventList({ city,page=1 }: EventListProps) {
     const {events:Events,totalEvents} = await getEvents(city,page);
     const events=await Events;
     const previousPath = page > 1 ? `/events/${city}?page=${page - 1}` : "";

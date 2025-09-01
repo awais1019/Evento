@@ -4,38 +4,46 @@ import React, { Suspense } from "react";
 import Loading from "../../../components/loading";
 import { capitalize } from "@/lib/utils";
 import { Metadata } from "next";
+import z from "zod";
 
 type Props = {
-  params: {
+  params: Promise<{
     city: string;
-  };
+  }>;
 };
 
-type EventsProps= Props & {
- searchParams: { [key: string]: string | string[] | undefined };
-}
+type EventsProps = Props & {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export function generateMetadata({params}: Props): Metadata {
-  const { city } = params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { city } = await params;
   return {
     title: city === "all" ? "All Events" : `Events in ${capitalize(city)}`,
   };
 }
 
-export default async function EventsPage({ params,searchParams }: EventsProps) {
+const pageNumberSchema = z.coerce.number().int().positive().optional();
+
+export default async function EventsPage({
+  params,
+  searchParams,
+}: EventsProps) {
   const { city } = await params;
-  const page=await searchParams.page??1;
+  const query = await searchParams;
+  const parsedPage = pageNumberSchema.safeParse(query.page);
+  if (!parsedPage.success) {
+    throw new Error("Invalid Page Number");
+  }
 
   return (
     <main className="flex flex-col items-center py-20 px-[20px] min-h-[110vh]">
       <H1 className="mb-20">
-        {city == "all"
-          ? "All Events"
-          : `Events in ${capitalize(city)}`}
+        {city == "all" ? "All Events" : `Events in ${capitalize(city)}`}
       </H1>
       <section>
-        <Suspense fallback={<Loading />}>
-          <EventList city={city} page={+page}/>
+        <Suspense key={city + parsedPage.data} fallback={<Loading />}>
+          <EventList city={city} page={parsedPage.data} />
         </Suspense>
       </section>
     </main>
