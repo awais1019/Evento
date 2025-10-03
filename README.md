@@ -1,7 +1,7 @@
 # 🎉 Evento
 
 Evento is a modern event discovery platform where users can explore events happening in different cities.
-It is built with **Next.js (App Router)**, **TypeScript**, **Prisma**, **TailwindCSS**, and **Framer Motion**.  
+It is built with **Next.js (App Router)**, **TypeScript**, **Prisma**, **TailwindCSS**, and **Framer Motion**. 
 The app allows users to search events, browse by city, view event details, and experience smooth animations.
 
 ## ✨ Features
