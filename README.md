@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎉 Evento
 
-## Getting Started
+Evento is a modern event discovery platform where users can explore events happening in different cities.
+It is built with **Next.js (App Router)**, **TypeScript**, **Prisma**, **TailwindCSS**, and **Framer Motion**.  
+The app allows users to search events, browse by city, view event details, and experience smooth animations.
 
-First, run the development server:
+## ✨ Features
+
+- 🔍 **Search Events** – Find events quickly using the search bar on the homepage.
+- 🏙 **City-Based Events** – Browse events happening in any city using dynamic routes (`/events/[city]`).
+- 📄 **Event Details** – View full details of an event via dynamic slug routes (`/event/[slug]`).
+- 📑 **Pagination** – Navigate through event listings with 6 events per page.
+- 🎞 **Smooth Animations** – Scroll-based animations powered by **Framer Motion**.
+- ✅ **Validation** – Input validation using **Zod** for safe routing and parameters.
+
+## 🛠 Tech Stack
+
+- **Framework:** Next.js 15 (App Router) + TypeScript
+- **Database ORM:** Prisma
+- **Styling:** TailwindCSS
+- **Animations:** Framer Motion
+- **Validation:** Zod
+
+## 📂 Project Structure
+
+```
+evento/
+ ├── prisma/              # Prisma schema
+ ├── public/              # Static assets (images, icons, etc.)
+ ├── src/
+ │   ├── app/             # Next.js App Router pages
+ │   │   ├── events/
+ │   │   │   ├── [city]/  # Dynamic city route (with pagination support)
+ │   │   │   └── page.tsx # Main events page
+ │   │   ├── event/
+ │   │   │   └── [slug]/  # Dynamic slug route for event details
+ │   │   └── page.tsx     # Home page (with search + all events)
+ │   ├── components/      # Reusable UI components (Header,Footer,Container,Eventcard, navbar, inputForm, etc.)
+ │   ├── lib/             # Helpers, Prisma queries, validation
+ ├── .env        # Environment variables example
+ ├── package.json
+ └── README.md
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js >= 18
+- PostgreSQL (or any Prisma-supported database)
+- npm or yarn package manager
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/awais1019/evento.git
+cd evento
+
+# Install dependencies
+npm install
+```
+
+### Environment Setup
+
+```bash
+
+# Add your database URL and required environment variables in .env file
+```
+
+### Database Setup
+
+```bash
+npx prisma migrate dev
+```
+
+### Run the App
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App will run on: [http://localhost:3000](http://localhost:3000) 🚀
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎮 Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Open the homepage and explore events.
+- Use the search bar to find specific events.
+- Browse by city (e.g., `/events/austin`).
+- Click an event card to see full details (`/event/[slug]`).
+- Navigate using pagination controls.
 
-## Learn More
+## 🎓 Learning Purpose
 
-To learn more about Next.js, take a look at the following resources:
+This project is created as part of my Next.js learning journey.
+Through this project, I learned and practiced:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Using the App Router with dynamic routes and parameters
+- Implementing pagination with Prisma (skip and take)
+- Structuring a project with app/, components/, and lib/ folders
+- Adding scroll-based animations using Framer Motion
+- Validating inputs and routes with Zod
+- Building responsive UI with TailwindCSS
+- Writing database seeding scripts using TypeScript and running them with **ts-node** / **tsx**
+- Understanding the deployment process with **Vercel** (Next.js hosting)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
